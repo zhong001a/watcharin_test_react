@@ -29,7 +29,6 @@ const HomePage = () => {
 
   return (
     <Box>
-
       <Box
         sx={{
           display: "grid",
