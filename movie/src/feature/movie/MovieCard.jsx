@@ -39,6 +39,7 @@ const MovieCard = ({ movie }) => {
   const addMovieToFavorite = (movie) => {
     dispatch(addFavorite(movie));
   };
+  const user = localStorage.getItem("user");
 
   return (
     <Box>
@@ -71,6 +72,7 @@ const MovieCard = ({ movie }) => {
               alignItems: "center",
             }}
           >
+     
             <Box
               sx={{
                 width: "10%",
@@ -81,7 +83,10 @@ const MovieCard = ({ movie }) => {
               <SmartDisplayOutlinedIcon sx={iconStyle}/>
               <LocalOfferOutlinedIcon sx={iconStyle}/>
               <AccessTimeOutlinedIcon sx={iconStyle}/>
-              <MovieCreationOutlinedIcon sx={iconStyle}/>
+              {movie.rating&&(
+
+                <MovieCreationOutlinedIcon sx={iconStyle}/>
+              )}
 
             </Box>
             <Box
@@ -125,9 +130,10 @@ const MovieCard = ({ movie }) => {
             </Button>
           </Box>
         )}
-        {isHover && (
+        {isHover &&  (
           <Box
             sx={{
+              display: user?null:'none',
               position: "absolute",
               bottom: "10px",
               right: "10px",
@@ -136,6 +142,7 @@ const MovieCard = ({ movie }) => {
             }}
             onClick={() => addMovieToFavorite(movie)}
           >
+            
             {isFavorite ? (
               <FavoriteIcon sx={iconFavStyle} />
             ) : (

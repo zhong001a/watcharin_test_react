@@ -9,9 +9,9 @@ import { selectSearchTerm, setAllMovies } from '../feature/movie/moviesSlice';
 const HomePage = () => {
   const dispatch = useDispatch()
   const { movies } = useMovies();
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const isSmallScreen = useMediaQuery('(max-width: 1240px)');
   
-  const [filteredMovies, setFilteredMovies] = useState([]);
   const searchTerm = useSelector(selectSearchTerm);
   useEffect(() => {
     dispatch(setAllMovies(movies))
@@ -29,6 +29,7 @@ const HomePage = () => {
 
   return (
     <Box>
+
       <Box
         sx={{
           display: "grid",

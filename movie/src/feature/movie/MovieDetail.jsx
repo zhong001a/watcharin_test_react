@@ -56,6 +56,7 @@ const MovieDetail = () => {
   }, [params, movies]);
 
   const actors = movie?.actor.split("/");
+  const user = localStorage.getItem("user");
 
   return (
     <Box
@@ -91,13 +92,15 @@ const MovieDetail = () => {
               {movie?.title_th}
             </Typography>
           </Box>
-          <Box onClick={() => addMovieToFavorite(movie)}>
-            {isFavorite ? (
-              <FavoriteIcon sx={iconFavStyle} />
-            ) : (
-              <FavoriteBorderIcon sx={iconFavStyle} />
-            )}
-          </Box>
+          {user && (
+            <Box onClick={() => addMovieToFavorite(movie)}>
+              {isFavorite ? (
+                <FavoriteIcon sx={iconFavStyle} />
+              ) : (
+                <FavoriteBorderIcon sx={iconFavStyle} />
+              )}
+            </Box>
+          )}
         </Box>
 
         <Box sx={{ display: "flex", paddingTop: "20px" }}>
@@ -105,7 +108,7 @@ const MovieDetail = () => {
           <Typography sx={fontStyle}>{movie?.director}</Typography>
         </Box>
 
-        <Box sx={{paddingY:'20px'}}>
+        <Box sx={{ paddingY: "20px" }}>
           <Typography sx={fontStyleTitle}>นักแสดง : </Typography>
           <Box sx={{ display: "flex" }}>
             {actors?.slice(0, 7).map((actor, index) => (
@@ -113,9 +116,12 @@ const MovieDetail = () => {
             ))}
           </Box>
         </Box>
-        <Box sx={{paddingY:'20px'}}>
-
-          <Typography sx={fontStyleTitle}> เรื่องย่อ : <Typography sx={fontStyle}>{movie?.synopsis_th}</Typography></Typography>
+        <Box sx={{ paddingY: "20px" }}>
+          <Typography sx={fontStyleTitle}>
+            {" "}
+            เรื่องย่อ :{" "}
+            <Typography sx={fontStyle}>{movie?.synopsis_th}</Typography>
+          </Typography>
         </Box>
       </Box>
 
