@@ -11,6 +11,11 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const email = data.get("email");
+    if (email) {
+      localStorage.setItem("user", JSON.stringify(email));
+      window.location.reload();
+    }
     console.log({
       email: data.get("email"),
       password: data.get("password"),
@@ -21,13 +26,13 @@ const LoginForm = () => {
       sx={{
         position: "fixed",
         top: "40%",
-        bgcolor: "#fff",
         borderRadius: "8px",
         margin: "20px",
       }}
     >
       <Box component="form" onSubmit={handleSubmit} noValidate sx={fontStyle}>
         <TextField
+          sx={{ bgcolor: "#fff" }}
           margin="normal"
           required
           fullWidth
@@ -38,7 +43,7 @@ const LoginForm = () => {
         />
 
         <TextField
-          sx={fontStyle}
+          sx={{ bgcolor: "#fff" }}
           margin="normal"
           required
           fullWidth

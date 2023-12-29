@@ -5,10 +5,11 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useMovies } from "../../hook/useMovieData";
 import ActorCard from "./ActorCard";
-import ModalAlert from "../../component/ModalAlert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite } from "../user/userSclice";
 
 const fontStyle = {
   fontFamily: "Kanit, sans-serif",
@@ -26,17 +27,27 @@ const fontStyleTitle = {
 const fontStyleHead = {
   fontFamily: "Kanit, sans-serif",
   paddingRight: "20px",
-  // fontSize: "20px",
-  // fontWeight: 400,
-  // marginTop: "10px",
+  maringBottom: "10px",
+};
+
+const iconFavStyle = {
+  fontSize: "35px",
+  cursor: "pointer",
 };
 
 const MovieDetail = () => {
+  // const movies = useSelector(selectAllMovies);
+  const dispatch = useDispatch();
   const [params, setParams] = useSearchParams();
   const [movie, setMovie] = useState();
-  // const movies = useSelector(selectAllMovies);
   const { movies } = useMovies();
-  const [isOpen, setIsOpen] = useState(false);
+  const favorite = useSelector((state) => state.user.favoriteList);
+  const isFavorite = favorite.some((fvmovie) => fvmovie?.id === movie?.id);
+
+  const addMovieToFavorite = (movie) => {
+    dispatch(addFavorite(movie));
+  };
+
   useEffect(() => {
     const id = params.get("id");
     const selectedMovie = movies.find((movie) => movie.id == id);
@@ -45,7 +56,6 @@ const MovieDetail = () => {
   }, [params, movies]);
 
   const actors = movie?.actor.split("/");
- 
 
   return (
     <Box
@@ -58,8 +68,6 @@ const MovieDetail = () => {
       <Box
         sx={{
           flexBasis: "65%",
-          // display: "flex",
-          // justifyContent: "center",
         }}
       >
         {movie?.tr_mp4 && (
@@ -72,9 +80,7 @@ const MovieDetail = () => {
             display: "flex",
             width: "100%",
             justifyContent: "space-between",
-            position: "sticky", // Set position to 'sticky'
-            top: 0, // Stick to the top
-            zIndex: 1000, // Optional: Set a
+            marginTop: "20px",
           }}
         >
           <Box>
@@ -85,45 +91,52 @@ const MovieDetail = () => {
               {movie?.title_th}
             </Typography>
           </Box>
-          <Box>
-            <FavoriteBorderIcon />
+          <Box onClick={() => addMovieToFavorite(movie)}>
+            {isFavorite ? (
+              <FavoriteIcon sx={iconFavStyle} />
+            ) : (
+              <FavoriteBorderIcon sx={iconFavStyle} />
+            )}
           </Box>
         </Box>
 
-        <Typography sx={fontStyle}>ผู้กำกับ : {movie?.director}</Typography>
-
-          <Typography sx={fontStyle}>นักแสดง : </Typography>
-          <Box sx={{display:'flex'}}>
-          {actors?.slice(0, 7).map((actor, index) => (
-            <ActorCard key={index} actor={actor} />
-          ))}
-
-          <ModalAlert isOpen={isOpen} setIsOpen={setIsOpen} actors={actors} />
+        <Box sx={{ display: "flex", paddingTop: "20px" }}>
+          <Typography sx={fontStyleTitle}>ผู้กำกับ :&nbsp;</Typography>
+          <Typography sx={fontStyle}>{movie?.director}</Typography>
         </Box>
 
-        <Typography sx={fontStyle}>เรื่องย่อ : {movie?.synopsis_th}</Typography>
-        
+        <Box sx={{paddingY:'20px'}}>
+          <Typography sx={fontStyleTitle}>นักแสดง : </Typography>
+          <Box sx={{ display: "flex" }}>
+            {actors?.slice(0, 7).map((actor, index) => (
+              <ActorCard key={index} actor={actor} />
+            ))}
+          </Box>
+        </Box>
+        <Box sx={{paddingY:'20px'}}>
+
+          <Typography sx={fontStyleTitle}> เรื่องย่อ : <Typography sx={fontStyle}>{movie?.synopsis_th}</Typography></Typography>
+        </Box>
       </Box>
+
       <Box
         sx={{
           bgcolor: "#fff",
-  
+
           flex: "1",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-
         }}
       >
         <Box
           sx={{
             width: "100%",
             maxWidth: "340px",
-       
           }}
         >
           <img src={movie?.poster_url} alt={movie?.title_en} width="100%" />
-          <Box sx={{ display: "flex", paddingTop: "10px" }}>
+          <Box sx={{ display: "flex", paddingTop: "20px" }}>
             <Typography sx={fontStyleTitle}>Reviews :&nbsp;</Typography>
             {movie?.rating_id !== undefined ? (
               <Rating

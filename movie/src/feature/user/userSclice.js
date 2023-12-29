@@ -22,12 +22,10 @@ const user = createSlice({
   reducers: {
     login(state, action) {
       state.id = action.payload;
-      state.quantity = state.quantity += 1;
       
     },
     logout(state, action) {
       state.id = action.payload;
-      state.quantity = state.quantity += 1;
       
     },
     addFavorite(state, action) {

@@ -11,7 +11,7 @@ const fontStyle = {
     WebkitBoxOrient: "vertical",
     WebkitLineClamp: 2,
    
-  };
+};
 const ActorCard = ({actor}) => {
   return (
     <Box sx={{

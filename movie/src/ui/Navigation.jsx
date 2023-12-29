@@ -1,21 +1,26 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Logout from "../feature/auth/Logout";
+import { useSelector } from "react-redux";
 
 const fontStyleTitle = {
   fontFamily: "Kanit, sans-serif",
   fontSize: "20px",
   fontWeight: 400,
   textDecoration: "none",
-  color: "#000",
+  color: "#fff",
 };
 
 const Navigation = () => {
+  const [active, setActive] = useState("");
+  const favorite = useSelector((state) => state.user.favoriteList);
   const menus = [
     { name: "Home", path: "" },
     { name: "Favorite", path: "/favorite" },
-    { name: "Watched", path: "/watch" },
+    { name: "Watched", path: "#" },
   ];
+
   return (
     <Box>
       <Box
@@ -23,7 +28,6 @@ const Navigation = () => {
           position: "fixed",
           top: "40%",
           width: "18%",
-          bgcolor: "#fff",
         }}
       >
         {menus.map((menu, index) => (
@@ -32,17 +36,24 @@ const Navigation = () => {
               sx={{
                 paddingY: "10px",
                 paddingX: "30px",
-                border: "1px solid #f1f1f1",
+                marginY: "1px",
+                bgcolor: menu.name === active ? "#000" : null,
                 "&:hover": {
                   bgcolor: "#000",
-                  border: "1px solid #f1f1f1",
                 },
               }}
+              onClick={() => setActive(menu.name)}
             >
-              <Typography sx={fontStyleTitle}>{menu.name}</Typography>
+              <Typography sx={fontStyleTitle}>
+                {menu.name}&nbsp;
+                {menu.name === "Favorite" && favorite.length > 0 && (
+                  <span>{favorite.length}</span>
+                )}
+              </Typography>
             </Box>
           </Link>
         ))}
+        <Logout />
       </Box>
     </Box>
   );
