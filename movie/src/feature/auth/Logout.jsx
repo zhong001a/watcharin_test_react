@@ -1,9 +1,12 @@
 import { Box, Button} from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
+  const navigation = useNavigate()
   const handleLogout = () => {
     localStorage.removeItem("user");
+    navigation("/")
     window.location.reload();
   };
   return (
