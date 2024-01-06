@@ -5,7 +5,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import Header from "./Header";
 
 const AppLayout = () => {
-  const isSmallScreen = useMediaQuery('(max-width: 1240px)');
+  const isSmallScreen = useMediaQuery('(max-width: 650px)');
   
   return (
     <>
@@ -13,7 +13,7 @@ const AppLayout = () => {
         <Box
           sx={{
             flexBasis: isSmallScreen? "100%":"90%",
-            minWidth: "500px",
+
             overflowY: "auto",
             position: "relative",
        
@@ -23,8 +23,8 @@ const AppLayout = () => {
 
           <Box
             sx={{
-              marginTop: "100px",
-              paddingLeft:'30px'
+              marginTop:isSmallScreen?'0':"100px",
+              paddingLeft: isSmallScreen?'0':'30px'
             }}
           >
             <Outlet />

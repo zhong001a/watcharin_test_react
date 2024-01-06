@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Logout from "../feature/auth/Logout";
 import { useSelector } from "react-redux";
 
+
 const fontStyleTitle = {
   fontFamily: "Kanit, sans-serif",
   fontSize: "20px",
@@ -12,7 +13,7 @@ const fontStyleTitle = {
   color: "#fff",
 };
 
-const Navigation = () => {
+const Navigation = ({setOpen}) => {
   const [active, setActive] = useState("");
   const favorite = useSelector((state) => state.user.favoriteList);
   const menus = [
@@ -21,13 +22,19 @@ const Navigation = () => {
     { name: "Watched", path: "#" },
   ];
 
+  const handlerClick = (menu)=>{
+    setActive(menu)  
+    setOpen(false)
+  }
+
   return (
     <Box>
       <Box
         sx={{
           position: "fixed",
           top: "40%",
-          width: "18%",
+          width: "100%",
+          bgcolor:'gray'
         }}
       >
         {menus.map((menu, index) => (
@@ -42,7 +49,7 @@ const Navigation = () => {
                   bgcolor: "#000",
                 },
               }}
-              onClick={() => setActive(menu.name)}
+              onClick={() => {handlerClick(menu.name)} }
             >
               <Typography sx={fontStyleTitle}>
                 {menu.name}&nbsp;
@@ -54,6 +61,7 @@ const Navigation = () => {
           </Link>
         ))}
         <Logout />
+
       </Box>
     </Box>
   );

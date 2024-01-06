@@ -16,8 +16,8 @@ const Logout = () => {
         bottom: "10%",
         bgcolor: "#fff",
         borderRadius: "8px",
-        marginLeft:'15px',
-        width:'14%'
+        marginX:'10px',
+        width:'35%'
       }}
     >
       <Button
@@ -26,7 +26,7 @@ const Logout = () => {
           bgcolor: "#557373",
           width:'100%',
           fontFamily: "Kanit, sans-serif",
-          fontSize: "18px",
+          fontSize: "16px",
           fontWeight: 400,
 
           "&:hover": {

@@ -4,7 +4,6 @@ import userSclice from "./feature/user/userSclice";
 
 const store = configureStore({
     reducer: {
-
         movies: moviesSlice,
         user: userSclice
     },

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -10,9 +10,10 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import MovieCreationOutlinedIcon from '@mui/icons-material/MovieCreationOutlined';
 import SmartDisplayOutlinedIcon from '@mui/icons-material/SmartDisplayOutlined';
 const iconStyle = {
-  fontSize: "18px",
+  fontSize: "13px",
   color:'#fff',
-  paddingY:'6px'
+  paddingTop:'9px',
+  paddingBottom:'5px'
 };
 
 const iconFavStyle = {
@@ -21,18 +22,18 @@ const iconFavStyle = {
 
 const fontStyle = {
   fontFamily: "Kanit, sans-serif",
-  fontSize: "18px",
+  fontSize: "14px",
   fontWeight: 300,
   color: "#fff",
   textAlign: "left",
-  paddingY:'4px'
+  paddingY:'5px'
 };
 
 const MovieCard = ({ movie }) => {
   const [isHover, setIsHover] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+  const isSmallScreen = useMediaQuery("(max-width: 390px)");  
   const favorite = useSelector((state) => state.user.favoriteList);
   const isFavorite = favorite.some((fvmovie) => fvmovie.id === movie.id);
 
@@ -48,7 +49,7 @@ const MovieCard = ({ movie }) => {
         onMouseLeave={() => setIsHover(false)}
         sx={{
           width: "100%",
-          height: "450px",
+          height: isSmallScreen?"270px":'450px',
           maxHeight: "450px",
           display: "flex",
           justifyContent: "center",
@@ -76,7 +77,7 @@ const MovieCard = ({ movie }) => {
             <Box
               sx={{
                 width: "10%",
-                paddingLeft:'10px'
+                paddingLeft:'5px'
 
               }}
             >
@@ -113,10 +114,9 @@ const MovieCard = ({ movie }) => {
                 paddingX: "30px",
                 bottom: "10%",
                 fontFamily: "Kanit, sans-serif",
-                fontSize: "16px",
+                fontSize: "14px",
                 borderRadius: "8px",
-
-                fontWeight: 400,
+                fontWeight: 500,
                 "&:hover": {
                   bgcolor: "#fff",
                   color: "#161c24",
@@ -156,10 +156,11 @@ const MovieCard = ({ movie }) => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          marginTop: "18px",
+          marginTop: "8px",
+          marginBottom:'10px'
         }}
       >
-        <Typography sx={{ fontFamily: "Kanit, sans-serif", fontSize: "20px", fontWeight:400}}>
+        <Typography sx={{ fontFamily: "Kanit, sans-serif", fontSize: "15px", fontWeight:400}}>
           {movie.title_en}
         </Typography>
       </Box>

@@ -2,14 +2,14 @@ import { Box, Button, TextField } from "@mui/material";
 import React from "react";
 const fontStyle = {
   fontFamily: "Kanit, sans-serif",
-  fontSize: "20px",
+  fontSize: "16px",
   fontWeight: 300,
   marginTop: "10px",
 };
 
 const LoginForm = () => {
   const handleSubmit = (event) => {
-    event.preventDefault();
+  
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     if (email) {
@@ -20,6 +20,8 @@ const LoginForm = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
+    event.preventDefault();
+
   };
   return (
     <Box
@@ -27,7 +29,7 @@ const LoginForm = () => {
         position: "fixed",
         top: "40%",
         borderRadius: "8px",
-        margin: "20px",
+        margin: "10px",
       }}
     >
       <Box component="form" onSubmit={handleSubmit} noValidate sx={fontStyle}>
@@ -63,8 +65,9 @@ const LoginForm = () => {
             paddingY: "10px",
             marginY: "10px",
             fontFamily: "Kanit, sans-serif",
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: 400,
+           
 
             "&:hover": {
               bgcolor: "#fff",
