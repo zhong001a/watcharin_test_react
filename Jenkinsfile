@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the Git repository
+                git 'https://github.com/zhong001a/watcharin_test_react.git'
+            }
+        }
         stage('Build') {
             steps {
                 // Build the Docker image
