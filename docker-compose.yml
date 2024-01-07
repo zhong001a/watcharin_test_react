@@ -1,0 +1,17 @@
+version: '3'
+services:
+  movie-service:
+    container_name: movie-service
+    build: service/.
+    ports:
+     - "8000:8000"
+  movie-finder:
+    container_name: movie-finder
+    build:  movie/.
+    ports:
+     - "3000:3000"
+    depends_on:
+     - movie-service
+      
+      
+
