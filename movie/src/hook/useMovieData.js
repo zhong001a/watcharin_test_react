@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-const API_URL = "http://localhost:8000/api/v1/movie";
+const API_URL = "http://3.26.182.197:8000/api/v1/movie";
 export const useMovies = ()=>{
     let movies = [];
     const fetcher = (...args) => fetch(...args).then((res) => res.json());
