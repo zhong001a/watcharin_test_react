@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    docker.build("your-docker-image-name:tag")
+                    docker.build("movie-service:1.1", "-f /service/Dockerfile")
                 }
             }
         }
